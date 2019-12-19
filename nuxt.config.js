@@ -29,6 +29,14 @@ export default {
   */
   plugins: [
   ],
+
+  /*
+  ** Router settings
+  */
+  router: {
+    middleware: ["authenticated"]
+  },
+
   /*
   ** Nuxt.js dev-modules
   */
@@ -54,7 +62,7 @@ export default {
     /*
     ** You can extend webpack config here
     */
-    extend (config, ctx) {
+    extend(config, ctx) {
     }
   }
 }
