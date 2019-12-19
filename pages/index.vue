@@ -26,6 +26,9 @@
         <input @click="login" type="submit" class="btn btn-primary" />
       </div>
     </form>
+    <div v-if="isError" class="alert alert-danger">
+      <p class="mb-0">{{ errorMsg }}</p>
+    </div>
   </div>
 </template>
 <script>
@@ -34,11 +37,22 @@ export default {
     account: {
       email: "",
       password: ""
-    }
+    },
+    isError: false,
+    errorMsg: ""
   }),
   methods: {
     login() {
-      console.log("logging in..", this.account.email, this.account.password);
+      this.$store.dispatch("users/login", this.account).catch(err => {
+        this.isError = true;
+        this.errorMsg = err.code;
+
+        setTimeout(() => {
+          this.isError = false;
+          this.errorMsg = "";
+        }, 3000);
+      });
+      this.$router.push("/admin");
     }
   }
 };
